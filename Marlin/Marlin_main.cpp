@@ -218,10 +218,6 @@ int EtoPPressure=0;
 float delta[3] = {0.0, 0.0, 0.0};
 #endif
 
-#ifdef LASER
-setupLaser();
-#endif
-
 //===========================================================================
 //=============================private variables=============================
 //===========================================================================
@@ -454,6 +450,10 @@ void setup()
 
   #if defined(CONTROLLERFAN_PIN) && CONTROLLERFAN_PIN > -1
     SET_OUTPUT(CONTROLLERFAN_PIN); //Set pin used for driver cooling fan
+  #endif
+  
+  #ifdef LASER
+  setupLaser();
   #endif
 }
 
