@@ -70,8 +70,11 @@
 
 #define POWER_SUPPLY 1
 
-//// The following selects whether or not the firmware is controlling a laser cutter
+// The following selects whether or not the firmware is controlling a laser cutter
+// LASER_PWM_MIN and MAX are defined in units HZ (cycles / second)
 #define LASER 1
+#define LASER_PWM_MIN 20000
+#define LASER_PWM_MAX 50000
 
 //===========================================================================
 //=============================Thermal Settings  ============================

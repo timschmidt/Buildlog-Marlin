@@ -17,8 +17,49 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include "Configuration.h" 
+#include "Configuration.h"
+#include "pins.h"
 #include <avr/interrupt.h>
 #include <Arduino.h>
 
+static void setupLaser()
+{
+  pinMode(LASER_FIRING_PIN, OUTPUT);
+  pinMode(LASER_INTENSITY_PIN, OUTPUT);
+  
+  float avr_freq = 16000000;
+  float max_timer_count = 65536;
+  
+  if (avr_freq / 256 / LASER_PWM_MAX < max_timer_count) {
+    
+  }
+  
+  else if (avr_freq / 64 / LASER_PWM_MAX < max_timer_count) {
+    
+  }
+  
+  else if (avr_freq / 8 / LASER_PWM_MAX < max_timer_count) {
+    
+  }  
+  
+  else {
+    
+  }
+}
 
+static void fireLaser(float intensity)
+{
+  if (intensity < 0) intensity = 0;
+  if (intensity > 1000) intensity = 1000;
+  float laser_pwm = LASER_PWM_MIN + ((LASER_PWM_MAX - LASER_PWM_MIN) * (intensity / 1000));
+  SERIAL_ECHO_START;
+  SERIAL_ECHO("Laser firing intensity: ");
+  SERIAL_ECHO(intensity);
+  SERIAL_ECHO("Laser firing PWM: ");
+  SERIAL_ECHOLN(laser_pwm);
+}
+
+static void offLaser()
+{
+  digitalWrite(LASER_FIRING_PIN,LOW);
+}

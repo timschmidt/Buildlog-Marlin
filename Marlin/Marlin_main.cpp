@@ -39,7 +39,11 @@
 #include "ConfigurationStore.h"
 #include "language.h"
 #include "pins_arduino.h"
+
+#ifdef LASER
 #include "laser.h"
+#include "laser.cpp"
+#endif
 
 #if NUM_SERVOS > 0
 #include "Servo.h"
@@ -212,6 +216,10 @@ int EtoPPressure=0;
 
 #ifdef DELTA
 float delta[3] = {0.0, 0.0, 0.0};
+#endif
+
+#ifdef LASER
+setupLaser();
 #endif
 
 //===========================================================================
@@ -1106,10 +1114,12 @@ void process_commands()
 #endif
 #ifdef LASER
     case 3:
-    
+      if(code_seen('S')){
+        fireLaser(code_value());
+      }
       break;
     case 5:
-    
+      offLaser();
       break;
 #endif
     case 17:
