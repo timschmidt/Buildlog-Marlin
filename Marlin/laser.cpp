@@ -55,7 +55,7 @@ static void fireLaser(float intensity)
 {
   if (intensity < 0) intensity = 0;
   if (intensity > 1000) intensity = 1000;
-  float laser_pwm = 16000000 / LASER_PWM_MIN + ((LASER_PWM_MAX - LASER_PWM_MIN) * (intensity / 1000));
+  float laser_pwm = 16000000 / (LASER_PWM_MIN + ((LASER_PWM_MAX - LASER_PWM_MIN) * (intensity / 1000)));
   OCR4A = laser_pwm;
   SERIAL_ECHO_START;
   SERIAL_ECHO("Laser firing intensity: ");
