@@ -34,7 +34,6 @@ static void setupLaser()
   ICR4 = 800; // 800 clock cycles = 20,000hz
   OCR4A = 799; // ICR4 - 1 force immediate compare on next tick
   TCCR4B = 0x18 | 0x02; // upper WGM4x = 14, clock sel = prescaler, start running
-
 }
 
 static void fireLaser(float intensity)
@@ -47,7 +46,7 @@ static void fireLaser(float intensity)
   TCNT4 = 799; // force immediate compare on next tick
   ICR4 = laser_pwm; // set new PWM period
   TCCR4B |= 0x02; // start the timer with proper prescaler value
-  interrupts()
+  interrupts();
   SERIAL_ECHO_START;
   SERIAL_ECHO("Laser firing intensity: ");
   SERIAL_ECHO(intensity);
