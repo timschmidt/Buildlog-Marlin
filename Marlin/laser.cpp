@@ -29,11 +29,11 @@ static void setupLaser()
   
   analogWrite(LASER_INTENSITY_PIN, 1);  // let Arduino setup do it's thing to the PWM pin
   
-  TCCR4B = 0x00;  // stop Timer1 clock for register updates
+  TCCR4B = 0x00;  // stop Timer4 clock for register updates
   TCCR4A = 0x82; // Clear OC4A on match, fast PWM mode, lower WGM4x=14
   ICR4 = 800; // 800 clock cycles = 20,000hz
   OCR4A = 799; // ICR4 - 1 force immediate compare on next tick
-  TCCR4B = 0x18 | 0x02; // upper WGM4x = 14, clock sel = prescaler, start running
+  TCCR4B = 0x18 | 0x01; // upper WGM4x = 14, clock sel = prescaler, start running
 }
 
 static void fireLaser(float intensity)
@@ -45,7 +45,7 @@ static void fireLaser(float intensity)
   TCCR4B &= 0xf8; // stop timer, OC4A may be active now
   TCNT4 = 799; // force immediate compare on next tick
   ICR4 = laser_pwm; // set new PWM period
-  TCCR4B |= 0x02; // start the timer with proper prescaler value
+  TCCR4B |= 0x01; // start the timer with proper prescaler value
   interrupts();
   SERIAL_ECHO_START;
   SERIAL_ECHO("Laser firing intensity: ");
