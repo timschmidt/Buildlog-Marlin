@@ -47,6 +47,7 @@ static void fireLaser(float intensity)
   ICR4 = laser_pwm; // set new PWM period
   TCCR4B |= 0x01; // start the timer with proper prescaler value
   interrupts();
+  digitalWrite(LASER_FIRING_PIN,HIGH);
   SERIAL_ECHO_START;
   SERIAL_ECHO("Laser firing intensity: ");
   SERIAL_ECHO(intensity);
